@@ -3,7 +3,7 @@
 {% load static %}
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>{{ template_data.title }}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
@@ -75,7 +75,7 @@
     <script>
         function getYear() {
             const yearEle = document.getElementById('currentYear')
-            yearEle.textContent = `${new Date().getFullYear()}.`
+            yearEle.textContent = `${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}.`
         }
         getYear()
     </script>

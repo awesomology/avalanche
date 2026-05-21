@@ -8,165 +8,47 @@
     </header>
     <main class="index-main">
         <div class="index-avalanche-products">
-            <h2>AVALANCHE SPOTLIGHTS</h2>
-            <p>Discover our latest collection of premium apparel and accessories.</p>
-            <div class="index-tab-headers">
-                <button class="active" data-tab="hoodie">Hoodies</button>
-                <button data-tab="joggers">Joggers</button>
-                <button data-tab="shirts">Shirts</button>
-                <button data-tab="jeans">Jeans</button>
-                <button data-tab="bags">Bags</button>
-                <button data-tab="shoes">Shoes</button>
-            </div>
-            <div class="index-tab-contents">
-                <div class="index-tab-content active" id="hoodie" data-tab="hoodie">
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE HOODIE</h3>
-                            <p>$49.99</p>
-                        </div>
+            <h2>BRAND SPOTLIGHTS</h2>
+            <p>Discover our latest collection of premium apparel and accessories by brand.</p>
+            {% for brand_item in brands_data %}
+                <div class="brand-section">
+                    <h3>{{ brand_item.brand.name }}</h3>
+                    <div class="index-tab-headers">
+                        {% for category in brand_item.categories %}
+                            <button class="{% if forloop.first %}active{% endif %}" data-tab="{{ category.key }}">{{ category.label }}</button>
+                        {% endfor %}
                     </div>
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE HOODIE</h3>
-                            <p>$49.99</p>
-                        </div>
-                    </div>
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE HOODIE</h3>
-                            <p>$49.99</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="index-tab-content" id="joggers" data-tab="joggers">
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE JOGGERS</h3>
-                            <p>$49.99</p>
-                        </div>
-                    </div>
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE JOGGERS</h3>
-                            <p>$49.99</p>
-                        </div>
-                    </div>
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE JOGGERS</h3>
-                            <p>$49.99</p>
-                        </div>
+                    <div class="index-tab-contents">
+                        {% for category in brand_item.categories %}
+                            <div class="index-tab-content {% if forloop.first %}active{% endif %}" data-tab="{{ category.key }}">
+                                {% if category.products %}
+                                    {% for product in category.products %}
+                                        <div class="index-product-card">
+                                            <div>
+                                                {% if product.image_url %}
+                                                    <img src="{{ product.image_url.url }}" alt="{{ product.name }}">
+                                                {% else %}
+                                                    <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="{{ product.name }}">
+                                                {% endif %}
+                                            </div>
+                                            <div>
+                                                <h3>{{ product.name }}</h3>
+                                                {% if product.brand %}
+                                                    <p class="brand-name">{{ product.brand.name }}</p>
+                                                {% endif %}
+                                                <p>{{ product.description }}</p>
+                                                <p><span>₦</span>{{ product.price }}</p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="empty-category">No {{ category.label }} available for {{ brand_item.brand.name }} yet.</p>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
-                <div class="index-tab-content" id="shirts" data-tab="shirts">
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE SHIRTS</h3>
-                            <p>$49.99</p>
-                        </div>
-                    </div>
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE SHIRTS</h3>
-                            <p>$49.99</p>
-                        </div>
-                    </div>
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE SHIRTS</h3>
-                            <p>$49.99</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="index-tab-content" id="jeans" data-tab="jeans">
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE JEANS</h3>
-                            <p>$49.99</p>
-                        </div>
-                    </div>
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE JEANS</h3>
-                            <p>$49.99</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="index-tab-content" id="bags" data-tab="bags">
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE BAGS</h3>
-                            <p>$49.99</p>
-                        </div>
-                    </div>
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE BAGS</h3>
-                            <p>$49.99</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="index-tab-content" id="shoes" data-tab="shoes">
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE SHOES</h3>
-                            <p>$49.99</p>
-                        </div>
-                    </div>
-                    <div class="index-product-card">
-                        <div>
-                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
-                        </div>
-                        <div>
-                            <h3>AVALANCHE SHOES</h3>
-                            <p>$49.99</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </main>
 {% endblock %}

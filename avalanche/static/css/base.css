@@ -2,8 +2,9 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     width: 100%;
+    overflow-x: hidden;
     /* margin-bottom: 80%; */
 }
 button {
@@ -141,6 +142,7 @@ a {
             width: 40vw;
             ul {
                 display: flex;
+                align-items: center;
             }
         }
     }
