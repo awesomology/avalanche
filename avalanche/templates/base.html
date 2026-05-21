@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ template_data.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <header class="base-header">
+        <div class="base-header-content-wrapper">
+            <div class="base-header-content">
+                <div class="base-header-left">
+                    <button>+ Contact</button>
+                </div>
+                <div class="base-header-center">
+                    <h1>AVALANCHE</h1>
+                </div>
+                <div class="base-header-right">
+                    <ul>
+                        <li><a href=""><img src="{% static 'icons/ic--outline-shopping-bag.svg' %}" alt=""></a></li>
+                        <li><button><img src="{% static 'icons/line-md--account.svg' %}" alt=""></button></li>
+                        <li><button><img src="{% static 'icons/mynaui--search.svg' %}" alt=""></button></li>
+                        <li><button id="menuBtn"><img src="{% static 'icons/system-uicons--menu-hamburger.svg' %}" alt=""> <span>Menu</span></button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer class="base-footer">
+        <div class="footer-top">
+            <div class="footer-top-section">
+                <h2>SITE LINKS</h2>
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Dashboard</a></li>
+                    <li><a href="">Cart</a></li>
+                </ul>
+            </div>
+            <div class="footer-top-section useful-links">
+                <h2>USEFUL LINKS</h2>
+                <ul>
+                    <li><a href="">Hoodies</a></li>
+                    <li><a href="">Joggers</a></li>
+                    <li><a href="">Shirts</a></li>
+                    <li><a href="">Jeans</a></li>
+                    <li><a href="">Bags</a></li>
+                    <li><a href="">Shoes</a></li>
+                </ul>
+            </div>
+            <div class="footer-top-section social-links">
+                <h2>SOCIALS</h2>
+                <ul>
+                    <li><a href=""><img src="{% static 'icons/ic--outline-shopping-bag.svg' %}" alt=""></a></li>
+                    <li><a href=""><img src="{% static 'icons/line-md--account.svg' %}" alt=""></a></li>
+                    <li><a href=""><img src="{% static 'icons/mynaui--search.svg' %}" alt=""></a></li>
+                    <li><a href=""><img src="{% static 'icons/system-uicons--menu-hamburger.svg' %}" alt=""></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <h1>AVALANCHE</h1>
+            <div class="base-legal">
+                <p>All rights reserved.</p>
+                <p><span>AVALANCHE</span> <p id="currentYear"></p></p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function getYear() {
+            const yearEle = document.getElementById('currentYear')
+            yearEle.textContent = `${new Date().getFullYear()}.`
+        }
+        getYear()
+    </script>
+</body>
+</html>

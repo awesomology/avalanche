@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <script src="{% static 'js/index.js' %}"></script>
+    <header class="index-header">
+        <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+    </header>
+    <main class="index-main">
+        <div class="index-avalanche-products">
+            <h2>AVALANCHE SPOTLIGHTS</h2>
+            <p>Discover our latest collection of premium apparel and accessories.</p>
+            <div class="index-tab-headers">
+                <button class="active" data-tab="hoodie">Hoodies</button>
+                <button data-tab="joggers">Joggers</button>
+                <button data-tab="shirts">Shirts</button>
+                <button data-tab="jeans">Jeans</button>
+                <button data-tab="bags">Bags</button>
+                <button data-tab="shoes">Shoes</button>
+            </div>
+            <div class="index-tab-contents">
+                <div class="index-tab-content active" id="hoodie" data-tab="hoodie">
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE HOODIE</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE HOODIE</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE HOODIE</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="index-tab-content" id="joggers" data-tab="joggers">
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE JOGGERS</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE JOGGERS</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE JOGGERS</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="index-tab-content" id="shirts" data-tab="shirts">
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE SHIRTS</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE SHIRTS</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE SHIRTS</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="index-tab-content" id="jeans" data-tab="jeans">
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE JEANS</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE JEANS</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="index-tab-content" id="bags" data-tab="bags">
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE BAGS</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE BAGS</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="index-tab-content" id="shoes" data-tab="shoes">
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE SHOES</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                    <div class="index-product-card">
+                        <div>
+                            <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+                        </div>
+                        <div>
+                            <h3>AVALANCHE SHOES</h3>
+                            <p>$49.99</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
