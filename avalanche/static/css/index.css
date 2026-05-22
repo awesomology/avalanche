@@ -28,9 +28,8 @@
             box-sizing: border-box;
 
             h3 {
-                font-family: monospace;
                 font-size: 28px;
-                color: goldenrod;
+                /* color: goldenrod; */
                 margin-bottom: 10px;
                 text-align: center;
             }
@@ -45,7 +44,6 @@
 
             button {
                 position: relative;
-                font-family: monospace;
                 font-size: 20px;
                 border-bottom: 3px solid transparent;
                 background: transparent;
@@ -63,7 +61,14 @@
                 bottom: 0;
                 height: 3px;
                 width: 100%;
-                background: goldenrod;
+                /* background: linear-gradient(
+                    var(--angle, 0deg),
+                    #ff7e5f,
+                    #feb47b,
+                    #ff6b9d,
+                    #ff7e5f
+                ); */
+                background: rgb(126, 120, 120);
                 transform: scaleX(0);
                 transition: transform 240ms ease;
             }
@@ -90,7 +95,7 @@
                 padding: 0 1rem 1rem 1rem;
                 scroll-snap-type: x mandatory;
                 scrollbar-width: thin;
-                scrollbar-color: goldenrod rgba(255,255,255,0.1);
+                scrollbar-color: linear-gradient(0deg, #ff7e5f, #feb47b, #ff6b9d, #ff7e5f) rgba(255,255,255,0.1);
                 box-sizing: border-box;
 
                 &::-webkit-scrollbar {
@@ -126,10 +131,12 @@
                 align-items: center;
                 text-align: center;
                 scroll-snap-align: start;
-                transition: transform 0.3s ease;
+                cursor: pointer;
+                transition: all 0.3s ease;
 
                 &:hover {
                     transform: translateY(-5px);
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 
                     img {
                         transform: scale(1.05);
@@ -158,7 +165,6 @@
 
                     span {
                         font-weight: 500;
-                        font-family: monospace;
                         font-size: 18px;
                     }
                 }
@@ -166,14 +172,12 @@
         }
 
         h2 {
-            color: goldenrod;
             margin-bottom: 10px;
             text-align: center;
         }
 
         p {
             font-weight: 300;
-            font-family: cursive;
             color: #000;
             margin: 0;
             margin-bottom: 30px;
@@ -182,19 +186,16 @@
     }
 }
 
-/* Add padding to first and last cards for better visibility */
-/* .index-tab-content.active {
-    padding-left: 1rem;
-    padding-right: 1rem;
+.index-product-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease;
 }
 
-.index-tab-content.active .index-product-card:first-child {
-    margin-left: 0;
+.index-product-card-link:hover {
+    transform: translateY(-5px);
 }
-
-.index-tab-content.active .index-product-card:last-child {
-    margin-right: 0;
-} */
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
