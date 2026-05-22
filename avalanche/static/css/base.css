@@ -111,6 +111,9 @@ a {
         color: white;
     }
 }
+.pad {
+    height: 100px;
+}
 .base-footer {
     display: flex;
     flex-direction: column;

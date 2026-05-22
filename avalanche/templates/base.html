@@ -31,6 +31,7 @@
             </div>
         </div>
     </header>
+    <div class="pad"></div>
     <main>
         {% block content %}
         {% endblock %}
@@ -48,12 +49,12 @@
             <div class="footer-top-section useful-links">
                 <h2>USEFUL LINKS</h2>
                 <ul>
-                    <li><a href="">Hoodies</a></li>
-                    <li><a href="">Joggers</a></li>
-                    <li><a href="">Shirts</a></li>
-                    <li><a href="">Jeans</a></li>
-                    <li><a href="">Bags</a></li>
-                    <li><a href="">Shoes</a></li>
+                    <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='hoodie' %}">Hoodies</a></li>
+                    <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='joggers' %}">Joggers</a></li>
+                    <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='shirts' %}">Shirts</a></li>
+                    <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='jeans' %}">Jeans</a></li>
+                    <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='bags' %}">Bags</a></li>
+                    <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='shoes' %}">Shoes</a></li>
                 </ul>
             </div>
             <div class="footer-top-section social-links">

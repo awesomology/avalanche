@@ -8,7 +8,7 @@
 			<animate fill="freeze" attributeName="stroke-dashoffset" begin="0.7s" dur="0.6s" to="0" />
 		</path>
 	</g>
-	<circle cx="17" cy="7" r="1.5" fill="currentColor" opacity="0">
+	<circle cx="17" cy="7" r="1.5" fill="white" opacity="0">
 		<animate fill="freeze" attributeName="opacity" begin="1.3s" dur="0.2s" to="1" />
 	</circle>
 </svg>

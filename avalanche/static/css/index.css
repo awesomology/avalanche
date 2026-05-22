@@ -1,3 +1,6 @@
+.pad {
+    display: none;
+}
 .index-header {
     img {
         width: 100%;
@@ -117,6 +120,7 @@
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
+                padding-top: 15px;
             }
 
             .index-product-card {
@@ -221,4 +225,56 @@
 *::before,
 *::after {
     box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Add to your index.css */
+.see-more-card {
+    text-decoration: none;
+}
+
+.see-more {
+    background: linear-gradient(135deg, rgba(218, 165, 32, 0.1), rgba(218, 165, 32, 0.05));
+    border: 2px dashed goldenrod;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 350px;
+}
+
+.see-more .see-more-icon {
+    font-size: 3rem;
+    color: goldenrod;
+    margin-bottom: 1rem;
+}
+
+.see-more h3 {
+    color: goldenrod;
+    font-size: 1.2rem;
+}
+
+.see-more p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.see-more-card:hover .see-more {
+    background: linear-gradient(135deg, rgba(218, 165, 32, 0.2), rgba(218, 165, 32, 0.1));
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
 }

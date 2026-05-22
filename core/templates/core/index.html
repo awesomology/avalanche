@@ -40,6 +40,21 @@
                                             </div>
                                         </a>
                                     {% endfor %}
+                                    
+                                    <!-- Add "See more" button if there are more products than displayed -->
+                                        {% if category.total_count > 4 %}
+                                            <a href="{% url 'core.category_detail' brand_slug=brand_item.brand.slug category_slug=category.key %}" class="index-product-card-link see-more-card">
+                                                <div class="index-product-card see-more">
+                                                    <div>
+                                                        <div class="see-more-icon">➕</div>
+                                                    </div>
+                                                    <div>
+                                                        <h3>See More {{ category.label }}</h3>
+                                                        <p>{{ category.total_count|add:"-4" }} more items available</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        {% endif %}
                                 {% else %}
                                     <p class="empty-category">No {{ category.label }} available for {{ brand_item.brand.name }} yet.</p>
                                 {% endif %}

@@ -1,0 +1,115 @@
+.category-main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.category-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.category-header h1 {
+    font-family: monospace;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.category-header p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.category-products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.category-product-link {
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+}
+
+.category-product-link:hover {
+    transform: translateY(-5px);
+}
+
+.category-product-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.category-product-card:hover {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.category-product-image {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.category-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.category-product-card:hover .category-product-image img {
+    transform: scale(1.05);
+}
+
+.category-product-info {
+    padding: 1rem;
+    text-align: center;
+}
+
+.category-product-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.product-price span {
+    font-size: 1rem;
+}
+
+.no-products {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    grid-column: 1 / -1;
+    padding: 3rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .category-main {
+        padding: 1rem;
+    }
+    
+    .category-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .category-products-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+    
+    .category-product-image {
+        height: 200px;
+    }
+}
