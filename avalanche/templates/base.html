@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>{{ template_data.title }}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base_queries.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
@@ -22,8 +23,8 @@
                 </div>
                 <div class="base-header-right">
                     <ul>
-                        <li><a href=""><img src="{% static 'icons/ic--outline-shopping-bag.svg' %}" alt=""></a></li>
-                        <li><button><img src="{% static 'icons/line-md--account.svg' %}" alt=""></button></li>
+                        <!-- <li><a href=""><img src="{% static 'icons/ic--outline-shopping-bag.svg' %}" alt=""></a></li>
+                        <li><button><img src="{% static 'icons/line-md--account.svg' %}" alt=""></button></li> -->
                         <li><button><img src="{% static 'icons/mynaui--search.svg' %}" alt=""></button></li>
                         <li><button id="menuBtn"><img src="{% static 'icons/system-uicons--menu-hamburger.svg' %}" alt=""> <span>Menu</span></button></li>
                     </ul>
@@ -31,7 +32,18 @@
             </div>
         </div>
     </header>
-    <div class="pad"></div>
+    <div class="base-contact-container">
+        <div class="base-contact-content">
+            <h2>Contact Us</h2>
+            <p>Have questions? Get in touch with us!</p>
+        </div>
+        <div class="base-contact-close">&times;</div>
+        <div class="base-whasapp-link">
+            <p><a href="https://wa.me/9139053984?text=I%20would%20like%20to%20know%20more%20about%20your%20products" target="_blank">Chat with us on WhatsApp</a></p>
+        </div>
+    </div>
+    <div class="base-contact-overlay"></div>
+    <div class="base-pad"></div>
     <main>
         {% block content %}
         {% endblock %}
@@ -42,8 +54,8 @@
                 <h2>SITE LINKS</h2>
                 <ul>
                     <li><a href="{% url 'core.index' %}">Home</a></li>
-                    <li><a href="">Dashboard</a></li>
-                    <li><a href="">Cart</a></li>
+                    <!-- <li><a href="">Dashboard</a></li> -->
+                    <!-- <li><a href="">Cart</a></li> -->
                 </ul>
             </div>
             <div class="footer-top-section useful-links">
@@ -72,7 +84,7 @@
             <h1>AVALANCHE</h1>
             <div class="base-legal">
                 <p>All rights reserved.</p>
-                <p><span>AVALANCHE</span> <p id="currentYear"></p></p>
+                <div class="base-time"><span>AVALANCHE</span> <p id="currentYear"></p></div>
             </div>
         </div>
     </footer>
@@ -82,6 +94,31 @@
             yearEle.textContent = `${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}.`
         }
         getYear()
+
+        // Contact button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactContainer = document.querySelector('.base-contact-container');
+            const contactContainerOverlay = document.querySelector('.base-contact-overlay');
+            const contactButton = document.querySelector('.base-header-left button');
+            const contactContainerClose = document.querySelector('.base-contact-close');
+            
+            if (contactButton && contactContainer) {
+                contactButton.addEventListener('click', function() {
+                    contactContainer.classList.toggle('show');
+                    contactContainerOverlay.classList.toggle('show')
+                });
+            }
+            
+            // Close when clicking outside
+            document.addEventListener('click', function(event) {
+                if (contactContainer && contactContainer.classList.contains('show') && contactContainerOverlay.classList.contains('show') && contactContainerClose) {
+                    if (!contactContainer.contains(event.target) && contactButton && !contactButton.contains(event.target) || contactContainerClose &&contactContainerClose.contains(event.target)) {
+                        contactContainer.classList.remove('show');
+                        contactContainerOverlay.classList.remove('show');
+                    }
+                }
+            });
+        });
     </script>
 </body>
 </html>

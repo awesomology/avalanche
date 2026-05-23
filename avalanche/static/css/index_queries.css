@@ -1,0 +1,31 @@
+/* Responsive adjustments */
+@media (max-width: 1023px) {
+    .index-header {
+        .index-pad {
+            height: 40px;
+            width: 100%;
+            border-bottom: 1px solid white;
+            background: #222222;
+        }
+        img {
+            height: auto;
+        }
+    }
+}
+@media (max-width: 768px) {
+    .index-main {
+        padding: 1rem;
+        
+        .index-avalanche-products {
+            .index-product-card {
+                flex: 0 0 250px;
+                min-width: 250px;
+            }
+            
+            .index-tab-headers button {
+                font-size: 16px;
+                gap: 15px;
+            }
+        }
+    }
+}

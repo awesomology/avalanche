@@ -1,0 +1,24 @@
+@media (max-width: 479px) {
+    .category-products-container {
+        grid-template-columns: 50% 50%;
+        gap: 1rem;
+
+        .category-product-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            h3 {
+                font-size: 10px;
+            }
+            p {
+                font-size: 7px;
+                padding-top: 2px;
+
+                span {
+                    font-size: 7px;
+                }
+            }
+        }
+    }
+}

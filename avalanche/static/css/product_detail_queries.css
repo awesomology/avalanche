@@ -1,0 +1,100 @@
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .product-detail-container {
+        flex-direction: column !important;
+        gap: 1.5rem;
+        padding: 1rem;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+    .product-image {
+        width: 100%;
+
+        img {
+            width: 100%;
+        }
+    }
+    .suggestions-container {
+        grid-template-columns: 50% 50%;
+        gap: 1rem;
+    }
+    .suggestion-brand {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    .product-image {
+        max-width: 100%;
+    }
+    
+    .product-info h1 {
+        font-size: 1.8rem;
+    }
+    
+    .product-price {
+        font-size: 1.5rem;
+    }
+
+    .suggestion-card {
+        height: 270px;
+        /* width: 180px; */
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .suggestion-image {
+        height: 270px;
+    }
+    .suggestion-card {
+        .suggestion-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+            .suggestion-brand {
+                display: none;
+            }
+
+            h3 {
+                font-size: 10px;
+            }
+            p {
+                position: relative;
+                top: 2px;
+            }
+            p, span {
+                font-size: 7px;
+            }
+        }
+    }
+}
+@media (max-width: 450px) {
+    .suggestions-section {
+        padding: 0 !important;
+    }
+}
+/* @media (max-width: 350px) {
+    .suggestion-card {
+        .suggestion-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+            .suggestion-brand {
+                display: none;
+            }
+
+            h3 {
+                font-size: 10px;
+            }
+            p {
+                position: relative;
+                top: 2px;
+            }
+            p, span {
+                font-size: 7px;
+            }
+        }
+    }
+} */

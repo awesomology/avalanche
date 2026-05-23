@@ -11,6 +11,12 @@
     font-weight: normal;
     font-style: normal;
 }
+/* Ensure all elements use border-box */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 body {
     font-family: 'QuickSand', Arial, sans-serif;
     margin: 0;
@@ -111,14 +117,107 @@ a {
         color: white;
     }
 }
-.pad {
+/* Alternative: Create a separate overlay for the blur effect */
+.base-contact-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.base-contact-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.base-contact-container {
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transition: transform 0.4s ease;
+    flex-direction: column; /* Stack vertically instead of horizontally */
+    padding: 30px;
+    background: white;
+    border-radius: 15px 0 0 15px;
+    z-index: 1000;
+    gap: 20px;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    width: 280px;
+
+    .base-contact-content {
+        text-align: center;
+        
+        h2 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            color: #333;
+        }
+        p {
+            margin: 0;
+            color: #666;
+        }
+    }
+
+    .base-whasapp-link {
+        text-align: center;
+        
+        a {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #333;
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.5s ease;
+            font-weight: bold;
+
+            &:hover {
+                background-color: #25d366;
+                transform: translateY(-2px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+}
+.base-contact-container.show {
+    display: flex;
+    transform: translateY(-50%);
+}
+
+/* Add a close button */
+.base-contact-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 30px;
+    color: #fff;
+    background: #666;
+    border-radius: 50px;
+    padding: 0 12px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        background-color: #000;
+    }
+}
+.base-pad {
     height: 100px;
 }
 .base-footer {
     display: flex;
     flex-direction: column;
     background-color: black;
-    /* width: 100%; *
+    /* width: 100%; */
     /* min-width: 100vw; */
     padding: 20px;
     position: relative;
@@ -195,6 +294,8 @@ a {
 
         .base-legal {
             display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         h1 {
@@ -206,9 +307,14 @@ a {
         p {
             margin: 2px;
             color: gray;
+        }
 
+        .base-time {
+            display: flex;
+            gap: 5px;
             span {
                 color: goldenrod;
+                margin: 2px;
             }
         }
     }

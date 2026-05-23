@@ -3,9 +3,11 @@
 
 {% block content %}
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index_queries.css' %}">
     <script src="{% static 'js/index.js' %}"></script>
     <header class="index-header">
-        <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="">
+        <div class="index-pad"></div>
+        <img src="{% static 'images/brand1.png' %}" alt="Avalanche Brand">
     </header>
     <main class="index-main">
         <div class="index-avalanche-products">
@@ -30,7 +32,7 @@
                                                     {% if product.image_url %}
                                                         <img src="{{ product.image_url.url }}" alt="{{ product.name }}">
                                                     {% else %}
-                                                        <img src="{% static 'images/posZoomAvalancheDark1.jpeg' %}" alt="{{ product.name }}">
+                                                        <img src="{% static 'images/brand.png' %}" alt="{{ product.name }}">
                                                     {% endif %}
                                                 </div>
                                                 <div>

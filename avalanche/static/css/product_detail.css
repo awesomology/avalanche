@@ -2,15 +2,13 @@
 .product-detail-container {
     display: flex;
     gap: 3rem;
-    max-width: 1200px;
-    margin:  0 auto 2rem auto;
     padding: 2rem;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
 }
 
 .product-image {
-    flex: 1;
+    height: auto;
     max-width: 500px;
 }
 
@@ -171,35 +169,4 @@
 
 .suggestion-price span {
     font-size: 1rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .product-detail-container {
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 1rem;
-        margin: 1rem;
-    }
-    
-    .product-image {
-        max-width: 100%;
-    }
-    
-    .product-info h1 {
-        font-size: 1.8rem;
-    }
-    
-    .product-price {
-        font-size: 1.5rem;
-    }
-    
-    .suggestions-container {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 1rem;
-    }
-    
-    .suggestion-image {
-        height: 200px;
-    }
 }
