@@ -22,13 +22,13 @@
                 <p class="product-price"><span>₦</span>{{ product.price }}</p>
                 <button class="add-to-cart-btn">Add to Cart</button>
             </div>
-            {% if suggestions %}
+            {% if related_products %}
             <div class="suggestions-section">
                 <h2>More Like This</h2>
                 <p>You might also be interested in these items</p>
                 <div class="suggestions-container">
-                    {% for suggestion in suggestions %}
-                        <a href="{% url 'core.product_detail' slug=suggestion.slug %}" class="suggestion-card-link">
+                    {% for suggestion in related_products %}
+                        <a href="{{ suggestion.get_absolute_url }}" class="suggestion-card-link">
                             <div class="suggestion-card">
                                 <div class="suggestion-image">
                                     {% if suggestion.image_url %}

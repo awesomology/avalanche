@@ -25,7 +25,7 @@
                     <ul>
                         <!-- <li><a href=""><img src="{% static 'icons/ic--outline-shopping-bag.svg' %}" alt=""></a></li>
                         <li><button><img src="{% static 'icons/line-md--account.svg' %}" alt=""></button></li> -->
-                        <li><button><img src="{% static 'icons/mynaui--search.svg' %}" alt=""></button></li>
+                        <li><button id="searchBtnHeader"><img src="{% static 'icons/mynaui--search.svg' %}" alt=""></button></li>
                         <li><button id="menuBtn"><img src="{% static 'icons/system-uicons--menu-hamburger.svg' %}" alt=""> <span>Menu</span></button></li>
                     </ul>
                 </div>
@@ -42,6 +42,39 @@
             <p><a href="https://wa.me/9139053984?text=I%20would%20like%20to%20know%20more%20about%20your%20products" target="_blank">Chat with us on WhatsApp</a></p>
         </div>
     </div>
+    <div class="base-menu">
+        <div class="base-menu-top">
+            <div class="base-menu-close">&times;</div>
+        </div>
+        <div class="base-menu-content">
+            <div class="base-menu-search">
+                <button id="searchBtn">Search</button>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for products...">
+                    <div>&times;</div>
+                    <button><img src="{% static 'icons/mynaui--search.svg' %}" alt=""></button>
+                </div>
+            </div>
+            <div class="base-menu-contact">
+                <div>
+                    <button>Contact Us</button>
+                    <p>Our opening hours are 10am-5pm</p>
+                </div>
+            </div>
+            <div class="base-menu-sections">
+                <h2>Sections</h2>
+                <ul>
+                    <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='hoodie' %}">Hoodies</a></li>
+                    <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='joggers' %}">Joggers</a></li>
+                    <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='shirts' %}">Shirts</a></li>
+                    <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='jeans' %}">Jeans</a></li>
+                    <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='bags' %}">Bags</a></li>
+                    <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='footwear' %}">Footwear</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="base-menu-overlay"></div>
     <div class="base-contact-overlay"></div>
     <div class="base-pad"></div>
     <main>
@@ -66,17 +99,17 @@
                     <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='shirts' %}">Shirts</a></li>
                     <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='jeans' %}">Jeans</a></li>
                     <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='bags' %}">Bags</a></li>
-                    <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='shoes' %}">Shoes</a></li>
+                    <li><a href="{% url 'core.category_detail' brand_slug='avalanche' category_slug='footwear' %}">Footwear</a></li>
                 </ul>
             </div>
             <div class="footer-top-section social-links">
                 <h2>SOCIALS</h2>
                 <ul>
-                    <li><a href="https://wa.me/9139053984?text=I%20would%20like%20to%20know%20more%20about%20your%20products"><img src="{% static 'icons/ic--baseline-whatsapp.svg' %}" alt=""></a></li>
-                    <li><a href="https://www.instagram.com/avalanche_luxe1?utm_source=qr"><img src="{% static 'icons/line-md--instagram.svg' %}" alt=""></a></li>
-                    <li><a href="https://www.tiktok.com/@avalanche_luxe?_r=1&_t=ZS-96Z9PC9ql0L"><img src="{% static 'icons/line-md--tiktok.svg' %}" alt=""></a></li>
-                    <li><a href="https://x.com/avalanche_luxe?s=11"><img src="{% static 'icons/line-md--twitter-x.svg' %}" alt=""></a></li>
-                    <li><a href="https://www.facebook.com/share/18jDCvFEpW/?mibextid=wwXIfr"><img src="{% static 'icons/mingcute--facebook-fill.svg' %}" alt=""></a></li>
+                    <li><a href="https://wa.me/9139053984?text=I%20would%20like%20to%20know%20more%20about%20your%20products" target="_blank"><img src="{% static 'icons/ic--baseline-whatsapp.svg' %}" alt=""></a></li>
+                    <li><a href="https://www.instagram.com/avalanche_luxe1?utm_source=qr" target="_blank"><img src="{% static 'icons/line-md--instagram.svg' %}" alt=""></a></li>
+                    <li><a href="https://www.tiktok.com/@avalanche_luxe?_r=1&_t=ZS-96Z9PC9ql0L" target="_blank"><img src="{% static 'icons/line-md--tiktok.svg' %}" alt=""></a></li>
+                    <li><a href="https://x.com/avalanche_luxe?s=11" target="_blank"><img src="{% static 'icons/line-md--twitter-x.svg' %}" alt=""></a></li>
+                    <li><a href="https://www.facebook.com/share/18jDCvFEpW/?mibextid=wwXIfr" target="_blank"><img src="{% static 'icons/mingcute--facebook-fill.svg' %}" alt=""></a></li>
                 </ul>
             </div>
         </div>
@@ -100,21 +133,219 @@
             const contactContainer = document.querySelector('.base-contact-container');
             const contactContainerOverlay = document.querySelector('.base-contact-overlay');
             const contactButton = document.querySelector('.base-header-left button');
+            const contactMenuButton = document.querySelector('.base-menu-contact button');
+            const baseMenu = document.querySelector('.base-menu');
+            const menuBtn = document.getElementById('menuBtn');
+            const menuOverlay = document.querySelector('.base-menu-overlay');
+            const baseMenuClose = document.querySelector('.base-menu-close');
             const contactContainerClose = document.querySelector('.base-contact-close');
+            const searchBtn = document.getElementById('searchBtn');
+            const searchBtnHeader = document.getElementById('searchBtnHeader');
             
-            if (contactButton && contactContainer) {
-                contactButton.addEventListener('click', function() {
+            // Create centered search overlay (if it doesn't exist)
+            let searchOverlay = document.querySelector('.base-search-overlay');
+            if (!searchOverlay) {
+                searchOverlay = document.createElement('div');
+                searchOverlay.className = 'base-search-overlay';
+                searchOverlay.innerHTML = `
+                    <div class="base-search-modal">
+                        <div class="base-search-header">
+                            <h3>Search Products</h3>
+                            <button class="base-search-close">&times;</button>
+                        </div>
+                        <div class="base-search-input-wrapper">
+                            <input type="text" id="globalSearchInput" placeholder="Search for products..." autocomplete="off">
+                            <button id="globalSearchBtn">
+                                <img src="{% static 'icons/mynaui--search.svg' %}" alt="Search">
+                            </button>
+                        </div>
+                        <div class="base-search-results"></div>
+                    </div>
+                `;
+                document.body.appendChild(searchOverlay);
+            }
+            
+            const searchModal = document.querySelector('.base-search-modal');
+            const searchCloseBtn = document.querySelector('.base-search-close');
+            const globalSearchInput = document.getElementById('globalSearchInput');
+            const globalSearchBtn = document.getElementById('globalSearchBtn');
+            const searchResults = document.querySelector('.base-search-results');
+            
+            if (contactButton && contactMenuButton && menuBtn && contactContainer) {
+                contactButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
                     contactContainer.classList.toggle('show');
-                    contactContainerOverlay.classList.toggle('show')
+                    contactContainerOverlay.classList.toggle('show');
+                });
+                
+                contactMenuButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    contactContainer.classList.toggle('show');
+                    contactContainerOverlay.classList.toggle('show');
+                    baseMenu.classList.toggle('show');
+                    menuOverlay.classList.toggle('show');
+                });
+                
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    baseMenu.classList.toggle('show');
+                    menuOverlay.classList.toggle('show');
                 });
             }
             
-            // Close when clicking outside
-            document.addEventListener('click', function(event) {
-                if (contactContainer && contactContainer.classList.contains('show') && contactContainerOverlay.classList.contains('show') && contactContainerClose) {
-                    if (!contactContainer.contains(event.target) && contactButton && !contactButton.contains(event.target) || contactContainerClose &&contactContainerClose.contains(event.target)) {
+            // Close contact modal when clicking close button
+            if (contactContainerClose) {
+                contactContainerClose.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    contactContainer.classList.remove('show');
+                    contactContainerOverlay.classList.remove('show');
+                });
+            }
+            
+            // Close menu when clicking close button
+            if (baseMenuClose) {
+                baseMenuClose.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    baseMenu.classList.remove('show');
+                    menuOverlay.classList.remove('show');
+                });
+            }
+            
+            // Search button functionality - close menu and open search overlay
+            if (searchBtn && searchBtnHeader) {
+                // const searchButton = searchBtn && searchBtnHeader;
+                searchBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    // Close menu if open
+                    if (baseMenu.classList.contains('show')) {
+                        baseMenu.classList.remove('show');
+                        menuOverlay.classList.remove('show');
+                    }
+                    
+                    // Close contact container if open
+                    if (contactContainer.classList.contains('show')) {
                         contactContainer.classList.remove('show');
                         contactContainerOverlay.classList.remove('show');
+                    }
+                    
+                    // Open search overlay
+                    searchOverlay.classList.add('show');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                    
+                    // Focus on input field
+                    setTimeout(() => {
+                        if (globalSearchInput) {
+                            globalSearchInput.focus();
+                        }
+                    }, 100);
+                });
+                searchBtnHeader.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    // Close menu if open
+                    if (baseMenu.classList.contains('show')) {
+                        baseMenu.classList.remove('show');
+                        menuOverlay.classList.remove('show');
+                    }
+                    
+                    // Close contact container if open
+                    if (contactContainer.classList.contains('show')) {
+                        contactContainer.classList.remove('show');
+                        contactContainerOverlay.classList.remove('show');
+                    }
+                    
+                    // Open search overlay
+                    searchOverlay.classList.add('show');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                    
+                    // Focus on input field
+                    setTimeout(() => {
+                        if (globalSearchInput) {
+                            globalSearchInput.focus();
+                        }
+                    }, 100);
+                });
+            }
+            
+            // Close search overlay function
+            function closeSearchOverlay() {
+                searchOverlay.classList.remove('show');
+                document.body.style.overflow = ''; // Restore scrolling
+                if (globalSearchInput) globalSearchInput.value = '';
+                if (searchResults) searchResults.innerHTML = '';
+            }
+            
+            // Close search when clicking close button
+            if (searchCloseBtn) {
+                searchCloseBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    closeSearchOverlay();
+                });
+            }
+            
+            // Close search when clicking outside the modal
+            if (searchOverlay) {
+                searchOverlay.addEventListener('click', function(e) {
+                    if (e.target === searchOverlay) {
+                        closeSearchOverlay();
+                    }
+                });
+            }
+            
+            // Handle search
+            function performSearch() {
+                const searchQuery = globalSearchInput.value.trim();
+                if (searchQuery) {
+                    window.location.href = `/search/?q=${encodeURIComponent(searchQuery)}`;
+                }
+            }
+            
+            if (globalSearchBtn) {
+                globalSearchBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    performSearch();
+                });
+            }
+            
+            if (globalSearchInput) {
+                globalSearchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        performSearch();
+                    }
+                });
+            }
+            
+            // Close search overlay with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && searchOverlay && searchOverlay.classList.contains('show')) {
+                    closeSearchOverlay();
+                }
+            });
+            
+            // Close when clicking outside (contact and menu)
+            document.addEventListener('click', function(event) {
+                // Handle contact modal closing
+                if (contactContainer && contactContainer.classList.contains('show')) {
+                    const isClickInsideContact = contactContainer.contains(event.target);
+                    const isClickOnContactButton = contactButton && contactButton.contains(event.target);
+                    const isClickOnContactMenuButton = contactMenuButton && contactMenuButton.contains(event.target);
+                    
+                    if (!isClickInsideContact && !isClickOnContactButton && !isClickOnContactMenuButton) {
+                        contactContainer.classList.remove('show');
+                        contactContainerOverlay.classList.remove('show');
+                    }
+                }
+                
+                // Handle menu closing
+                if (baseMenu && baseMenu.classList.contains('show')) {
+                    const isClickInsideMenu = baseMenu.contains(event.target);
+                    const isClickOnMenuBtn = menuBtn && menuBtn.contains(event.target);
+                    const isClickOnContactMenuButton = contactMenuButton && contactMenuButton.contains(event.target);
+                    
+                    if (!isClickInsideMenu && !isClickOnMenuBtn && !isClickOnContactMenuButton) {
+                        baseMenu.classList.remove('show');
+                        menuOverlay.classList.remove('show');
                     }
                 }
             });

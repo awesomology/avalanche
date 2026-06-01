@@ -26,7 +26,8 @@
                             <div class="index-tab-content {% if forloop.first %}active{% endif %}" data-tab="{{ category.key }}">
                                 {% if category.products %}
                                     {% for product in category.products %}
-                                        <a href="{% url 'core.product_detail' slug=product.slug %}" class="index-product-card-link">
+                                        <!-- FIXED: Use brand_item.brand.slug and category.key instead of brand.slug and cat -->
+                                        <a href="{% url 'core.product_detail' brand_slug=brand_item.brand.slug category_slug=category.key product_slug=product.slug %}" class="index-product-card-link">
                                             <div class="index-product-card">
                                                 <div>
                                                     {% if product.image_url %}
@@ -44,19 +45,17 @@
                                     {% endfor %}
                                     
                                     <!-- Add "See more" button if there are more products than displayed -->
-                                        {% if category.total_count > 4 %}
-                                            <a href="{% url 'core.category_detail' brand_slug=brand_item.brand.slug category_slug=category.key %}" class="index-product-card-link see-more-card">
-                                                <div class="index-product-card see-more">
-                                                    <div>
-                                                        <div class="see-more-icon">➕</div>
-                                                    </div>
-                                                    <div>
-                                                        <h3>See More {{ category.label }}</h3>
-                                                        <p>{{ category.total_count|add:"-4" }} more items available</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        {% endif %}
+                                    {% if category.total_count > 4 %}
+                                        <a href="{% url 'core.category_detail' brand_slug=brand_item.brand.slug category_slug=category.key %}" class="index-product-card-link see-more-card">
+                                            <div class="index-product-card see-more">
+                                                <div class="see-more-icon">➕</div>
+                                                <!-- <div>
+                                                    <h3>See More {{ category.label }}</h3>
+                                                    <p>{{ category.total_count|add:"-4" }} more items available</p>
+                                                </div> -->
+                                            </div>
+                                        </a>
+                                    {% endif %}
                                 {% else %}
                                     <p class="empty-category">No {{ category.label }} available for {{ brand_item.brand.name }} yet.</p>
                                 {% endif %}

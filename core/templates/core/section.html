@@ -12,7 +12,7 @@
         
         <div class="category-products-container">
             {% for product in products %}
-                <a href="{% url 'core.product_detail' slug=product.slug %}" class="category-product-link">
+                <a href="{% url 'core.product_detail' brand_slug=brand.slug category_slug=category_slug product_slug=product.slug %}" class="category-product-link">
                     <div class="category-product-card">
                         <div class="category-product-image">
                             {% if product.image_url %}

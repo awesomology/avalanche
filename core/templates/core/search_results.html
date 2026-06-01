@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/search_results.css' %}">
+<div class="search-results-container">
+    <div class="search-results-header">
+        <h1>Search Results</h1>
+        {% if search_query %}
+            <p>Showing results for: <strong>"{{ search_query }}"</strong></p>
+        {% endif %}
+    </div>
+    
+    {% if search_query %}
+        {% if has_results %}
+            <div class="search-results-count">
+                <p>Found {{ search_results|length }} brand(s) with matching products</p>
+            </div>
+            
+            {% for brand_data in search_results %}
+                <div class="search-brand-section">
+                    <div class="search-brand-header">
+                        <h2>{{ brand_data.brand.name }}</h2>
+                    </div>
+                    
+                    {% for category_data in brand_data.categories %}
+                        <div class="search-category-section">
+                            <h3>{{ category_data.label }}</h3>
+                            <div class="search-products-grid">
+                                {% for product in category_data.products %}
+                                    <div class="search-product-card">
+                                        <!-- FIXED: Use the correct URL pattern with all three parameters -->
+                                        <a href="{% url 'core.product_detail' brand_slug=brand_data.brand.slug category_slug=category_data.key product_slug=product.slug %}">
+                                            {% if product.image_url %}
+                                                <img src="{{ product.image_url.url }}" alt="{{ product.name }}">
+                                            {% else %}
+                                                <img src="{% static 'images/brand1.png' %}" alt="{{ product.name }}">
+                                            {% endif %}
+                                            <div class="search-product-info">
+                                                <h4>{{ product.name }}</h4>
+                                                <p class="search-product-price">₦{{ product.price }}</p>
+                                                {% if product.description %}
+                                                    <p class="search-product-description">{{ product.description|truncatewords:15 }}</p>
+                                                {% endif %}
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% if category_data.total_count > category_data.products|length %}
+                                <div class="search-view-all">
+                                    <a href="{% url 'core.category_detail' brand_slug=brand_data.brand.slug category_slug=category_data.key %}">
+                                        View all {{ category_data.total_count }} products →
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="search-no-results">
+                <p>No products found matching "{{ search_query }}"</p>
+                <div class="search-suggestions">
+                    <h3>Suggestions:</h3>
+                    <ul>
+                        <li>Check your spelling</li>
+                        <li>Try more general keywords</li>
+                        <li>Try different keywords</li>
+                        <li><a href="{% url 'core.index' %}">Browse all products</a></li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="search-empty">
+            <p>Please enter a search term to find products.</p>
+            <a href="{% url 'core.index' %}" class="search-back-home">Back to Home</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

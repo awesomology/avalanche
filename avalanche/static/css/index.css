@@ -52,6 +52,7 @@
                 padding-bottom: 6px;
                 -webkit-tap-highlight-color: transparent;
                 cursor: pointer;
+                color: #000;
                 white-space: nowrap;
             }
 
@@ -225,6 +226,7 @@
 /* Add to your index.css */
 .see-more-card {
     text-decoration: none;
+    display: flex;
 }
 
 .see-more {
@@ -233,13 +235,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 350px;
+    align-self: center;
+    height: 100px !important;
+    width: 100px !important;
+    max-height: 100px !important;
+    min-height: 100px !important;
+    min-width: 100px !important;
+    max-width: 100px !important;
+    border-radius: 50px !important;
 }
 
 .see-more .see-more-icon {
     font-size: 3rem;
     color: goldenrod;
-    margin-bottom: 1rem;
 }
 
 .see-more h3 {

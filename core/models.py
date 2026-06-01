@@ -10,7 +10,7 @@ CATEGORY_CHOICES = [
     ('shirts', 'Shirts'),
     ('jeans', 'Jeans'),
     ('bags', 'Bags'),
-    ('shoes', 'Shoes'),
+    ('footwear', 'Footwear'),
 ]
 
 class Brand(models.Model):
@@ -50,7 +50,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        if not self.slug:
+        if not self.slug or self.slug == '':  # Check for empty string too
             base_slug = slugify(self.name)[:110] or 'product'
             slug = base_slug
             counter = 1
@@ -61,7 +61,15 @@ class Product(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('core.product_detail', kwargs={'slug': self.slug})
+        """Generate the correct URL for this product"""
+        if self.brand and self.category:
+            return reverse('core.product_detail', kwargs={
+                'brand_slug': self.brand.slug,
+                'category_slug': self.category,
+                'product_slug': self.slug
+            })
+        # Fallback for products without brand
+        return reverse('core.product_detail_direct', kwargs={'product_slug': self.slug})
 
     def __str__(self):
         return self.name + ' - ₦' + str(self.price) + ' - ' + self.category
