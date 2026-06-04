@@ -16,6 +16,8 @@ CATEGORY_CHOICES = [
 class Brand(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=120, unique=True, blank=True)
+    is_active = models.BooleanField(default=True)  # Option to hide brand
+    order = models.IntegerField(default=0, help_text="Order in which brands appear on front page")
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -30,6 +32,9 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        ordering = ['order', 'name']  # Brands will be ordered by 'order' first, then by name
 
 
 class Product(models.Model):
@@ -46,6 +51,8 @@ class Product(models.Model):
         related_name='products'
     )
     image_url = models.ImageField(upload_to='products/', blank=True)
+    is_featured = models.BooleanField(default=False, help_text="Show on front page")
+    featured_order = models.IntegerField(default=0, help_text="Order on front page (lower numbers appear first)")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -72,4 +79,28 @@ class Product(models.Model):
         return reverse('core.product_detail_direct', kwargs={'product_slug': self.slug})
 
     def __str__(self):
-        return self.name + ' - ₦' + str(self.price) + ' - ' + self.category
+        return self.name + ' - ₦' + str(self.price) + ' - ' + self.category + self.slug
+    
+    class Meta:
+        ordering = ['featured_order', '-created_at']
+
+class FeaturedSection(models.Model):
+    """Optional: Create custom featured sections"""
+    SECTION_TYPES = [
+        ('brand_spotlight', 'Brand Spotlight'),
+        ('new_arrivals', 'New Arrivals'),
+        ('trending', 'Trending'),
+        ('custom', 'Custom Section'),
+    ]
+    
+    title = models.CharField(max_length=200)
+    section_type = models.CharField(max_length=50, choices=SECTION_TYPES, default='brand_spotlight')
+    is_active = models.BooleanField(default=True)
+    order = models.IntegerField(default=0)
+    max_products = models.IntegerField(default=8, help_text="Maximum number of products to show")
+    
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        ordering = ['order']

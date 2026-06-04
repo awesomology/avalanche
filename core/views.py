@@ -1,14 +1,10 @@
 from collections import defaultdict
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
-from django.db.models import Q
+from django.db.models import Q, Prefetch
 from .models import Brand, Product
 
 # Create your views here.
-
-from django.db.models import Q
-from django.shortcuts import render
-from .models import Brand, Product  # Adjust imports based on your model structure
 
 def index(request):
     template_data = {'title': 'Avalanche | Luxury Streetwear'}
@@ -22,19 +18,28 @@ def index(request):
         'footwear': 'Footwear',
     }
 
-    brands = Brand.objects.prefetch_related('products')
+    # Get only active brands with featured products
+    brands = Brand.objects.filter(
+        is_active=True,
+        products__is_featured=True
+    ).distinct().prefetch_related(
+        Prefetch('products', queryset=Product.objects.filter(is_featured=True).order_by('featured_order'))
+    )
+    
     brands_data = []
     for brand in brands:
         products_by_category = defaultdict(list)
+        
+        # Group featured products by category
         for product in brand.products.all():
-            if product.category in categories:
+            if product.is_featured and product.category in categories:
                 products_by_category[product.category].append(product)
 
         categories_data = []
         for cat in categories:
-            display_products = products_by_category[cat][:4]
+            display_products = products_by_category[cat][:4]  # Show max 4 per category
             total_count = len(products_by_category[cat])
-
+            
             categories_data.append({
                 'key': cat,
                 'label': category_labels[cat],
@@ -42,10 +47,12 @@ def index(request):
                 'total_count': total_count,
             })
 
-        brands_data.append({
-            'brand': brand,
-            'categories': categories_data,
-        })
+        # Only include brand if it has at least one category with products
+        if any(cat['products'] for cat in categories_data):
+            brands_data.append({
+                'brand': brand,
+                'categories': categories_data,
+            })
 
     return render(request, 'core/index.html', {
         'template_data': template_data,
@@ -263,3 +270,24 @@ def category_detail(request, brand_slug, category_slug):
         'category_slug': category_slug,
         'products': products,
     })
+
+
+
+
+# Add to views.py temporarily
+from django.core.mail import send_mail
+from django.http import JsonResponse
+from django.conf import settings
+
+def test_email(request):
+    try:
+        send_mail(
+            'Test Email from Avalanche',
+            'This is a test email to check if the email system is working properly.',
+            settings.DEFAULT_FROM_EMAIL,
+            ['atulacharles167@gmail.com'],  # Replace with your email
+            fail_silently=False,
+        )
+        return JsonResponse({'status': 'success', 'message': 'Email sent successfully!'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)})

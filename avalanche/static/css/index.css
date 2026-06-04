@@ -248,6 +248,7 @@
 .see-more .see-more-icon {
     font-size: 3rem;
     color: goldenrod;
+    /* margin-bottom: 0.5rem; */
 }
 
 .see-more h3 {

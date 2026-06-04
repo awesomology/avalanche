@@ -1,0 +1,200 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrastyle %}
+<style>
+    .featured-products-container {
+        padding: 20px;
+    }
+    .brand-section {
+        background: white;
+        margin-bottom: 30px;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .brand-section h2 {
+        color: #333;
+        border-bottom: 2px solid goldenrod;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+    }
+    .product-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    .product-card.selected {
+        background: #e8f5e9;
+        border-color: #4caf50;
+        box-shadow: 0 0 0 2px #4caf50;
+    }
+    .product-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+    .product-card h3 {
+        margin: 10px 0 5px;
+        font-size: 16px;
+    }
+    .product-card .price {
+        color: goldenrod;
+        font-weight: bold;
+    }
+    .selection-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #4caf50;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+    }
+    .submit-row {
+        position: sticky;
+        bottom: 0;
+        background: white;
+        padding: 20px;
+        margin-top: 30px;
+        border-top: 2px solid #ddd;
+        text-align: center;
+    }
+    .submit-btn {
+        background: goldenrod;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .submit-btn:hover {
+        background: #b8860b;
+    }
+    .help-text {
+        margin-bottom: 20px;
+        padding: 10px;
+        background: #f8f9fa;
+        border-left: 4px solid goldenrod;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="featured-products-container">
+    <h1>Manage Featured Products on Front Page</h1>
+    
+    <div class="help-text">
+        <strong>Instructions:</strong> Click on products to select/unselect them for the front page.
+        Selected products will appear in the order you click them. Maximum 5 products per brand.
+    </div>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        {% for brand in brands %}
+        <div class="brand-section">
+            <h2>{{ brand.name }}</h2>
+            <div class="products-grid" data-brand="{{ brand.id }}">
+                {% for product in brand.products.all %}
+                <div class="product-card {% if product.is_featured %}selected{% endif %}" 
+                     data-product-id="{{ product.id }}"
+                     data-brand-id="{{ brand.id }}">
+                    <div class="selection-badge" style="display: {% if product.is_featured %}flex{% else %}none{% endif %};">
+                        ✓
+                    </div>
+                    {% if product.image_url %}
+                        <img src="{{ product.image_url.url }}" alt="{{ product.name }}">
+                    {% else %}
+                        <img src="{% static 'images/placeholder.jpg' %}" alt="{{ product.name }}">
+                    {% endif %}
+                    <h3>{{ product.name }}</h3>
+                    <p class="price">₦{{ product.price }}</p>
+                    <small>{{ product.get_category_display }}</small>
+                </div>
+                <input type="hidden" name="products_{{ brand.id }}" value="" class="selected-products-{{ brand.id }}">
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+        
+        <div class="submit-row">
+            <button type="submit" class="submit-btn">Save Featured Products</button>
+        </div>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Track selected products for each brand
+    const selectedProducts = {};
+    
+    // Initialize from existing selections
+    document.querySelectorAll('.product-card.selected').forEach(card => {
+        const brandId = card.dataset.brandId;
+        const productId = card.dataset.productId;
+        if (!selectedProducts[brandId]) selectedProducts[brandId] = [];
+        selectedProducts[brandId].push(productId);
+    });
+    
+    // Update hidden inputs
+    function updateHiddenInputs(brandId) {
+        const hiddenInput = document.querySelector(`.selected-products-${brandId}`);
+        if (hiddenInput) {
+            hiddenInput.value = selectedProducts[brandId] ? selectedProducts[brandId].join(',') : '';
+        }
+    }
+    
+    // Handle product card clicks
+    document.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+            const brandId = this.dataset.brandId;
+            const productId = this.dataset.productId;
+            const badge = this.querySelector('.selection-badge');
+            
+            if (!selectedProducts[brandId]) selectedProducts[brandId] = [];
+            
+            if (this.classList.contains('selected')) {
+                // Deselect
+                this.classList.remove('selected');
+                badge.style.display = 'none';
+                const index = selectedProducts[brandId].indexOf(productId);
+                if (index > -1) selectedProducts[brandId].splice(index, 1);
+            } else {
+                // Select (limit to 5 per brand)
+                if (selectedProducts[brandId].length >= 5) {
+                    alert('Maximum 5 products per brand can be featured on the front page.');
+                    return;
+                }
+                this.classList.add('selected');
+                badge.style.display = 'flex';
+                selectedProducts[brandId].push(productId);
+            }
+            
+            updateHiddenInputs(brandId);
+        });
+    });
+    
+    // Initialize hidden inputs
+    document.querySelectorAll('.brand-section').forEach(section => {
+        const brandId = section.querySelector('.products-grid').dataset.brand;
+        updateHiddenInputs(brandId);
+    });
+});
+</script>
+{% endblock %}

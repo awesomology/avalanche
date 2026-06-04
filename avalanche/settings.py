@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+from decouple import config
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,7 +23,7 @@ FILE_ASSETS_DIR = BASE_DIR / 'avalanche'
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c**hbhq^px-@#)$2w#h&(#67ttl(a(8^5g)55gi8gvzj$l5=5s'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -124,3 +126,18 @@ STATICFILES_DIRS = [FILE_ASSETS_DIR / 'static']
 ############################################
 MEDIA_URL = '/media/'
 MEDIA_ROOT = FILE_ASSETS_DIR / 'media'
+
+############################################
+# Email settings (for notifications)
+############################################
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+DEFAULT_FROM_EMAIL = f"Avalanche | Luxury Streetwear <{EMAIL_HOST_USER}>"
+
+ADMIN_EMAILS = [
+    'atulacharles167@gmail.com',
+]

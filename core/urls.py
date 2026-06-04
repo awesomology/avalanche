@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-from . import views
+from . import views, admin_views, notification_views
 
 urlpatterns = [
     path('', views.index, name='core.index'),
@@ -15,4 +15,13 @@ urlpatterns = [
     
     # Product detail with brand and category - this should be LAST
     path('<slug:brand_slug>/<slug:category_slug>/<slug:product_slug>/', views.product_detail, name='core.product_detail'),
+
+    # Admin custom views
+    path('admins/manage-featured-products/', admin_views.manage_featured_products, name='core.manage_featured_products'),
+
+    # Silent notification endpoint
+    path('api/notify-purchase-intent/', notification_views.notify_purchase_intent, name='notify_purchase_intent'),
+
+    #DEBUGGING ENDPOINTS - REMOVE IN PRODUCTION
+    path('test-email/', views.test_email, name='test_email'),
 ]

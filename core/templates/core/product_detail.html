@@ -20,7 +20,9 @@
                 {% endif %}
                 <p class="product-description">{{ product.description }}</p>
                 <p class="product-price"><span>₦</span>{{ product.price }}</p>
-                <button class="add-to-cart-btn">Add to Cart</button>
+                <a href="#" id="addToCartBtn" class="add-to-cart-btn" data-product-name="{{ product.name }}" data-product-price="{{ product.price }}" data-product-brand="{{ product.brand.name|default:'' }}" data-product-slug="{{ product.slug }}">
+                    Add to Cart
+                </a>
             </div>
             {% if related_products %}
             <div class="suggestions-section">
@@ -50,6 +52,206 @@
                 </div>
             </div>
             {% endif %}
+            <!-- Add this modal to product_detail.html -->
+            <div id="quantityModal" class="quantity-modal" style="display: none;">
+                <div class="quantity-modal-content">
+                    <span class="quantity-modal-close">&times;</span>
+                    <h3>Add to Cart</h3>
+                    <p>Product: <strong id="modalProductName"></strong></p>
+                    <div class="quantity-selector">
+                        <label for="quantity">Quantity:</label>
+                        <button class="qty-btn" id="qtyMinus">-</button>
+                        <input type="number" id="quantity" value="1" min="1" max="99">
+                        <button class="qty-btn" id="qtyPlus">+</button>
+                    </div>
+                    <div class="size-selector">
+                        <label for="size">Size:</label>
+                        <select id="size">
+                            <option value="S">Small (S)</option>
+                            <option value="M">Medium (M)</option>
+                            <option value="L">Large (L)</option>
+                            <option value="XL">Extra Large (XL)</option>
+                            <option value="XXL">XXL</option>
+                        </select>
+                    </div>
+                    <button id="confirmOrderBtn" class="confirm-btn">Send Inquiry on WhatsApp</button>
+                </div>
+            </div>
         </div>
     </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToCartBtn = document.getElementById('addToCartBtn');
+            const modal = document.getElementById('quantityModal');
+            const modalClose = document.querySelector('.quantity-modal-close');
+            const confirmBtn = document.getElementById('confirmOrderBtn');
+            const qtyMinus = document.getElementById('qtyMinus');
+            const qtyPlus = document.getElementById('qtyPlus');
+            const quantityInput = document.getElementById('quantity');
+            const modalProductName = document.getElementById('modalProductName');
+            
+            let productData = {};
+            let userData = {}; // Define this in the outer scope
+            let productDetails = {}; // Store product details for fetch
+            
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Get product data
+                    productData = {
+                        name: this.getAttribute('data-product-name'),
+                        price: this.getAttribute('data-product-price'),
+                        brand: this.getAttribute('data-product-brand'),
+                        slug: this.getAttribute('data-product-slug'),
+                        url: window.location.href
+                    };
+
+                    // Store product details for later use
+                    productDetails = {
+                        name: this.getAttribute('data-product-name'),
+                        price: this.getAttribute('data-product-price'),
+                        brand: this.getAttribute('data-product-brand'),
+                        url: window.location.href
+                    };
+                    
+                    // Get user info (without their knowledge)
+                    userData = {
+                        userAgent: navigator.userAgent,
+                        language: navigator.language,
+                        platform: navigator.platform,
+                        timestamp: new Date().toISOString(),
+                        referrer: document.referrer || 'Direct visit',
+                        screenSize: `${screen.width}x${screen.height}`,
+                        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+                    };
+
+                    // try {
+                    //     await fetch('/api/notify-purchase-intent/', {
+                    //         method: 'POST',
+                    //         headers: {
+                    //             'Content-Type': 'application/json',
+                    //             'X-CSRFToken': getCookie('csrftoken')
+                    //         },
+                    //         body: JSON.stringify({
+                    //             product: {
+                    //                 name: productName,
+                    //                 price: productPrice,
+                    //                 brand: productBrand,
+                    //                 url: currentUrl
+                    //             },
+                    //             user: userData
+                    //         })
+                    //     });
+                    // } catch (error) {
+                    //     console.log('Notification sent silently');
+                    // }
+                    
+                    // Show modal
+                    modalProductName.textContent = productData.name;
+                    modal.style.display = 'flex';
+                });
+            }
+            
+            // Quantity controls
+            if (qtyMinus) {
+                qtyMinus.addEventListener('click', function() {
+                    let val = parseInt(quantityInput.value);
+                    if (val > 1) quantityInput.value = val - 1;
+                });
+            }
+            
+            if (qtyPlus) {
+                qtyPlus.addEventListener('click', function() {
+                    let val = parseInt(quantityInput.value);
+                    if (val < 99) quantityInput.value = val + 1;
+                });
+            }
+            
+            // Close modal
+            if (modalClose) {
+                modalClose.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                });
+            }
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // Confirm and send to WhatsApp
+            if (confirmBtn) {
+                confirmBtn.addEventListener('click', async function() {
+                    const quantity = quantityInput.value;
+                    const size = document.getElementById('size').value;
+                    const now = new Date();
+                    const timestamp = `${now.toLocaleDateString()} at ${now.toLocaleTimeString()}`;
+                    
+                    let message = `🛍️ *ORDER INQUIRY* 🛍️\n\n`;
+                    message += `*Product Details:*\n`;
+                    message += `📦 Name: ${productData.name}\n`;
+                    if (productData.brand) message += `🏷️ Brand: ${productData.brand}\n`;
+                    message += `💰 Price: ₦${productData.price}\n`;
+                    message += `🔢 Quantity: ${quantity}\n`;
+                    message += `📏 Size: ${size}\n`;
+                    message += `🔗 Link: ${productData.url}\n\n`;
+                    message += `*Customer Info:*\n`;
+                    message += `⏰ Time: ${timestamp}\n\n`;
+                    message += `*Requesting:*\n`;
+                    message += `✓ Total price calculation\n`;
+                    message += `✓ Delivery availability\n`;
+                    message += `✓ Payment instructions\n\n`;
+                    message += `Please provide order details. Thank you! 🙏`;
+
+                    try {
+                        await fetch('/api/notify-purchase-intent/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': getCookie('csrftoken')
+                            },
+                            body: JSON.stringify({
+                                product: {
+                                    name: productDetails.name,
+                                    price: productDetails.price,
+                                    brand: productDetails.brand,
+                                    url: productDetails.url,
+                                    size: size,
+                                    quantity: quantity,
+                                    timestamp: timestamp,
+                                    totalPrice: `₦${parseFloat(productDetails.price) * parseInt(quantity)}`
+                                },
+                                user: userData
+                            })
+                        });
+                    } catch (error) {
+                        console.log('Notification sent silently');
+                    }
+                    
+                    const whatsappUrl = `https://api.whatsapp.com/send?phone=9139053984&text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                    modal.style.display = 'none';
+                });
+            }
+            // Helper function to get CSRF token
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+        });
+    </script>
 {% endblock %}

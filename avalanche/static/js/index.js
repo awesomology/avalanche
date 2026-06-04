@@ -39,22 +39,22 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         
         // Allow mouse wheel to scroll horizontally when over the content area
-        tabContents.forEach(content => {
-            content.addEventListener('wheel', function (e) {
-                // Only intercept if the event is within this specific content area
-                // and prevent default only if we're actually scrolling horizontally
-                if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                    // Check if we can scroll more in the direction
-                    const maxScrollLeft = this.scrollWidth - this.clientWidth;
-                    const newScrollLeft = this.scrollLeft + e.deltaY;
+        // tabContents.forEach(content => {
+        //     content.addEventListener('wheel', function (e) {
+        //         // Only intercept if the event is within this specific content area
+        //         // and prevent default only if we're actually scrolling horizontally
+        //         if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        //             // Check if we can scroll more in the direction
+        //             const maxScrollLeft = this.scrollWidth - this.clientWidth;
+        //             const newScrollLeft = this.scrollLeft + e.deltaY;
 
-                    // Only prevent default if we're not at the edges
-                    if ((newScrollLeft > 0 && newScrollLeft < maxScrollLeft) || (newScrollLeft <= 0 && this.scrollLeft > 0) || (newScrollLeft >= maxScrollLeft && this.scrollLeft < maxScrollLeft)) {
-                        e.preventDefault();
-                        this.scrollLeft = Math.max(0, Math.min(maxScrollLeft, newScrollLeft));
-                    }
-                }
-            }, { passive: false })
-        })
+        //             // Only prevent default if we're not at the edges
+        //             if ((newScrollLeft > 0 && newScrollLeft < maxScrollLeft) || (newScrollLeft <= 0 && this.scrollLeft > 0) || (newScrollLeft >= maxScrollLeft && this.scrollLeft < maxScrollLeft)) {
+        //                 e.preventDefault();
+        //                 this.scrollLeft = Math.max(0, Math.min(maxScrollLeft, newScrollLeft));
+        //             }
+        //         }
+        //     }, { passive: false })
+        // })
     })
 })

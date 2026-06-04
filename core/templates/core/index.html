@@ -48,7 +48,7 @@
                                     {% if category.total_count > 4 %}
                                         <a href="{% url 'core.category_detail' brand_slug=brand_item.brand.slug category_slug=category.key %}" class="index-product-card-link see-more-card">
                                             <div class="index-product-card see-more">
-                                                <div class="see-more-icon">➕</div>
+                                                <div class="see-more-icon">></div>
                                                 <!-- <div>
                                                     <h3>See More {{ category.label }}</h3>
                                                     <p>{{ category.total_count|add:"-4" }} more items available</p>

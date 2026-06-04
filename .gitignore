@@ -1,1 +1,4 @@
 reference_images/
+.env
+*.env
+.env.*
