@@ -15,7 +15,7 @@ class BrandAdmin(admin.ModelAdmin):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'brand', 'category', 'price', 'is_featured', 'featured_order', 'image_preview']
+    list_display = ['name', 'slug', 'brand', 'category', 'price', 'is_featured', 'featured_order', 'image_preview']
     list_editable = ['is_featured', 'featured_order', 'price']
     list_filter = ['category', 'brand', 'is_featured', 'created_at']
     search_fields = ['name', 'description', 'brand__name']
