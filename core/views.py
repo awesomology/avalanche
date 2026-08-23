@@ -8,14 +8,14 @@ from .models import Brand, Product
 
 def index(request):
     template_data = {'title': 'Avalanche | Luxury Streetwear'}
-    categories = ['hoodie', 'joggers', 'shirts', 'jeans', 'bags', 'footwear']
+    categories = ['shirts', 'trousers', 'hoodie_sweatshirts', 'joggers', 'footwear', 'others']
     category_labels = {
-        'hoodie': 'Hoodies',
-        'joggers': 'Joggers',
         'shirts': 'Shirts',
-        'jeans': 'Jeans',
-        'bags': 'Bags',
+        'trousers': 'Trousers',
+        'hoodie_sweatshirts': 'Hoodie/Sweatshirts',
+        'joggers': 'Joggers',
         'footwear': 'Footwear',
+        'others': 'Others',
     }
 
     # Get only active brands with featured products
@@ -63,14 +63,14 @@ def search(request):
     query = request.GET.get('q', '').strip()
     template_data = {'title': f'Search Results for "{query}" | Avalanche'}
     
-    categories = ['hoodie', 'joggers', 'shirts', 'jeans', 'bags', 'footwear']
+    categories = ['shirts', 'trousers', 'hoodie_sweatshirts', 'joggers', 'footwear', 'others']
     category_labels = {
-        'hoodie': 'Hoodies',
-        'joggers': 'Joggers',
         'shirts': 'Shirts',
-        'jeans': 'Jeans',
-        'bags': 'Bags',
+        'trousers': 'Trousers',
+        'hoodie_sweatshirts': 'Hoodie/Sweatshirts',
+        'joggers': 'Joggers',
         'footwear': 'Footwear',
+        'others': 'Others',
     }
     
     search_results = []
@@ -164,12 +164,12 @@ def product_detail(request, brand_slug=None, category_slug=None, product_slug=No
     
     # Get category display name
     category_labels = {
-        'hoodie': 'Hoodies',
-        'joggers': 'Joggers',
         'shirts': 'Shirts',
-        'jeans': 'Jeans',
-        'bags': 'Bags',
+        'trousers': 'Trousers',
+        'hoodie_sweatshirts': 'Hoodie/Sweatshirts',
+        'joggers': 'Joggers',
         'footwear': 'Footwear',
+        'others': 'Others',
     }
     category_display = category_labels.get(category, category.capitalize())
     
@@ -233,18 +233,18 @@ def category_detail(request, brand_slug, category_slug):
         raise Http404(f"Brand with slug '{brand_slug}' does not exist")
 
     # Validate category slug
-    valid_categories = ['hoodie', 'joggers', 'shirts', 'jeans', 'bags', 'footwear']
+    valid_categories = ['shirts', 'trousers', 'hoodie_sweatshirts', 'joggers', 'footwear', 'others']
     if category_slug not in valid_categories:
         raise Http404(f"Invalid category: '{category_slug}'")
 
     # Get category label
     category_labels = {
-        'hoodie': 'Hoodies',
-        'joggers': 'Joggers',
         'shirts': 'Shirts',
-        'jeans': 'Jeans',
-        'bags': 'Bags',
+        'trousers': 'Trousers',
+        'hoodie_sweatshirts': 'Hoodie/Sweatshirts',
+        'joggers': 'Joggers',
         'footwear': 'Footwear',
+        'others': 'Others',
     }
     category_label = category_labels.get(category_slug, category_slug.capitalize())
     

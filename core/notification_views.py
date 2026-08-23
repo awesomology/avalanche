@@ -184,30 +184,30 @@ def notify_purchase_intent(request):
         }, status=500)
 
 
-def send_whatsapp_notification(phone_number, message):
-    """Send WhatsApp notification using WhatsApp Business API or third-party service"""
+# def send_whatsapp_notification(phone_number, message):
+#     """Send WhatsApp notification using WhatsApp Business API or third-party service"""
     
-    # Option 1: Using WhatsApp Cloud API (Meta)
-    # You'll need to set up WhatsApp Business API
-    WHATSAPP_TOKEN = getattr(settings, 'WHATSAPP_TOKEN', '')
-    WHATSAPP_PHONE_ID = getattr(settings, 'WHATSAPP_PHONE_ID', '')
+#     # Option 1: Using WhatsApp Cloud API (Meta)
+#     # You'll need to set up WhatsApp Business API
+#     WHATSAPP_TOKEN = getattr(settings, 'WHATSAPP_TOKEN', '')
+#     WHATSAPP_PHONE_ID = getattr(settings, 'WHATSAPP_PHONE_ID', '')
     
-    if WHATSAPP_TOKEN and WHATSAPP_PHONE_ID:
-        url = f"https://graph.facebook.com/v17.0/{WHATSAPP_PHONE_ID}/messages"
-        headers = {
-            "Authorization": f"Bearer {WHATSAPP_TOKEN}",
-            "Content-Type": "application/json"
-        }
-        data = {
-            "messaging_product": "whatsapp",
-            "to": phone_number,
-            "type": "text",
-            "text": {"body": message[:1500]}  # WhatsApp message limit
-        }
-        try:
-            requests.post(url, headers=headers, json=data, timeout=5)
-        except:
-            pass
+#     if WHATSAPP_TOKEN and WHATSAPP_PHONE_ID:
+#         url = f"https://graph.facebook.com/v17.0/{WHATSAPP_PHONE_ID}/messages"
+#         headers = {
+#             "Authorization": f"Bearer {WHATSAPP_TOKEN}",
+#             "Content-Type": "application/json"
+#         }
+#         data = {
+#             "messaging_product": "whatsapp",
+#             "to": phone_number,
+#             "type": "text",
+#             "text": {"body": message[:1500]}  # WhatsApp message limit
+#         }
+#         try:
+#             requests.post(url, headers=headers, json=data, timeout=5)
+#         except:
+#             pass
     
     # Option 2: Using Twilio WhatsApp API
     # TWILIO_ACCOUNT_SID = getattr(settings, 'TWILIO_ACCOUNT_SID', '')
@@ -218,19 +218,19 @@ def send_whatsapp_notification(phone_number, message):
     # Or simply log to database for manual review
 
 
-def send_telegram_notification(message):
-    """Send notification to Telegram bot"""
-    TELEGRAM_BOT_TOKEN = getattr(settings, 'TELEGRAM_BOT_TOKEN', '')
-    TELEGRAM_CHAT_ID = getattr(settings, 'TELEGRAM_CHAT_ID', '')
+# def send_telegram_notification(message):
+#     """Send notification to Telegram bot"""
+#     TELEGRAM_BOT_TOKEN = getattr(settings, 'TELEGRAM_BOT_TOKEN', '')
+#     TELEGRAM_CHAT_ID = getattr(settings, 'TELEGRAM_CHAT_ID', '')
     
-    if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-        url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-        data = {
-            "chat_id": TELEGRAM_CHAT_ID,
-            "text": message[:4000],
-            "parse_mode": "HTML"
-        }
-        try:
-            requests.post(url, json=data, timeout=5)
-        except:
-            pass
+#     if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
+#         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+#         data = {
+#             "chat_id": TELEGRAM_CHAT_ID,
+#             "text": message[:4000],
+#             "parse_mode": "HTML"
+#         }
+#         try:
+#             requests.post(url, json=data, timeout=5)
+#         except:
+#             pass

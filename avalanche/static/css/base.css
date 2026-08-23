@@ -116,6 +116,32 @@ a {
     button {
         color: white;
     }
+
+    .base-back-btn {
+        position: relative;
+        top: 10px;
+        right: 300px;
+        background-color: #666;
+        border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+
+        p {
+            margin: 0;
+            font-size: 20px;
+        }
+    }
+}
+.small {
+    position: fixed;
+    bottom: 60px;
+    min-height: 100px;
+    min-width: 100%;
+    display: none;
 }
 /* Alternative: Create a separate overlay for the blur effect */
 .base-contact-overlay {
@@ -615,8 +641,45 @@ a {
 }
 
 .base-search-results {
+    display: flex;
     max-height: 400px;
     overflow-y: auto;
+
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        max-width: 500px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            display: flex;
+            border: 1px solid #999;
+            align-items: center;
+            border-radius: 17px;
+            padding-left: 8px;
+            &::before {
+                content: "•";
+                margin-right: 2px;
+                color: #333;
+                font-size: 1.2em;
+            }
+
+            a {
+                display: flex;
+                position: relative;
+                bottom: 2px;
+                line-height: 1.6;
+                font-size: small;
+                padding: 5px 8px 0 0;
+                min-width: fit-content;
+                height: fit-content;
+                color: #666;
+            }
+        }
+    }
 }
 
 /* Responsive */

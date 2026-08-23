@@ -5,12 +5,12 @@ from django.utils.text import slugify
 # Create your models here.
 
 CATEGORY_CHOICES = [
-    ('hoodie', 'Hoodies'),
-    ('joggers', 'Joggers'),
     ('shirts', 'Shirts'),
-    ('jeans', 'Jeans'),
-    ('bags', 'Bags'),
+    ('trousers', 'Trousers'),
+    ('hoodie_sweatshirts', 'Hoodie/Sweatshirts'),
+    ('joggers', 'Joggers'),
     ('footwear', 'Footwear'),
+    ('others', 'Others'),
 ]
 
 class Brand(models.Model):
